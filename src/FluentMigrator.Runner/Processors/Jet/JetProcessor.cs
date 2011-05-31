@@ -127,5 +127,12 @@ namespace FluentMigrator.Runner.Processors.Jet
                 return indexes.Rows.Count > 0;
             }
         }
+	}
     }
+
+	    public override bool IndexExists(string schemaName, string tableName, string indexName, string columnName)
+	    {
+	        throw new NotImplementedException();
+	    }
+	}
 }

@@ -128,10 +128,16 @@ namespace FluentMigrator.Runner.Processors.Oracle
             return Exists("SELECT 1 FROM ALL_INDEXES WHERE OWNER = '{0}' AND INDEX_NAME = '{1}'", schemaName.ToUpper(), indexName.ToUpper());
         }
 
+		public override bool IndexExists(string schemaName, string tableName, string indexName, string columnName)
+	    {
+	        throw new NotImplementedException();
+	    }
+
         public override void Execute(string template, params object[] args)
         {
             if (template == null)
                 throw new ArgumentNullException("template");
+	   
 
             if (Connection.State != ConnectionState.Open)
                 Connection.Open();

@@ -173,9 +173,14 @@ namespace FluentMigrator.Tests.Integration.Processors
             throw new NotImplementedException();
         }
 
-        public override bool Exists(string template, params object[] args)
-        {
-            throw new NotImplementedException();
-        }
-    }
+	    public override bool IndexExists(string schemaName, string tableName, string indexName, string columnName)
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public override bool Exists(string template, params object[] args)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

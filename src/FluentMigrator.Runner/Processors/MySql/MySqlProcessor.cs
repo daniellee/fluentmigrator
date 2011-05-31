@@ -76,6 +76,11 @@ namespace FluentMigrator.Runner.Processors.MySql
             return Exists(sql, FormatSqlEscape(tableName), FormatSqlEscape(indexName));
         }
 
+		public override bool IndexExists(string schemaName, string tableName, string indexName, string columnName)
+	    {
+	        throw new NotImplementedException();
+	    }
+
     	public override void Execute(string template, params object[] args)
         {
             if (Connection.State != ConnectionState.Open) Connection.Open();
