@@ -160,6 +160,7 @@
     <Compile Include="Generators\SqlServer\SqlServer2000TypeMap.cs" />
     <Compile Include="Generators\SqlServer\SqlServer2005TypeMap.cs" />
     <Compile Include="Generators\SqlServer\SqlServer2008TypeMap.cs" />
+    <Compile Include="Generators\SqlServer\SqlServerCe4Generator.cs" />
     <Compile Include="Generators\SqlServer\SqlServerCeGenerator.cs" />
     <Compile Include="Generators\SqlServer\SqlServerCeTypeMap.cs" />
     <Compile Include="Generators\SqlServer\SqlServerColumn.cs" />
@@ -206,6 +207,7 @@
     <Compile Include="Processors\Sqlite\SqliteDbFactory.cs" />
     <Compile Include="Processors\SqlServer\SqlServerCeDbFactory.cs" />
     <Compile Include="Processors\SqlServer\SqlServerDbFactory.cs" />
+    <Compile Include="Processors\SqlServer\SqlServerCe4Processor.cs" />
     <Compile Include="Processors\SqlServer\SqlServerCeProcessor.cs" />
     <Compile Include="Processors\SqlServer\SqlServer2008ProcessorFactory.cs" />
     <Compile Include="Processors\SqlServer\SqlServer2005ProcessorFactory.cs" />

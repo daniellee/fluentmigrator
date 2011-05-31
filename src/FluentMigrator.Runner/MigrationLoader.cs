@@ -32,7 +32,13 @@ namespace FluentMigrator.Runner
 		public bool LoadNestedNamespaces { get; private set; }
 		public SortedList<long, IMigration> Migrations { get; private set; }
 
-		public MigrationLoader(IMigrationConventions conventions, Assembly assembly, string @namespace)
+	    public MigrationLoader()
+	    {
+            Conventions = new MigrationConventions();
+            Migrations = new SortedList<long, IMigration>();
+	    }
+
+	    public MigrationLoader(IMigrationConventions conventions, Assembly assembly, string @namespace)
 		{
 			Conventions = conventions;
 			Assembly = assembly;
