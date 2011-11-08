@@ -32,6 +32,11 @@ namespace FluentMigrator.Runner.Processors.SqlServer
             Connection = connection;
         }
 
+        public override string DatabaseType
+        {
+            get { return "SqlCe4"; }
+        }
+
         public override void Process(PerformDBOperationExpression expression)
         {
             if (expression.Operation == null)
