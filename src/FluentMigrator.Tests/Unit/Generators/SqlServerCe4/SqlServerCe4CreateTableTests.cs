@@ -4,6 +4,7 @@ using FluentMigrator.Runner;
 using FluentMigrator.Runner.Announcers;
 using FluentMigrator.Runner.Generators.SqlServer;
 using FluentMigrator.Runner.Initialization;
+using FluentMigrator.Runner.Processors;
 using FluentMigrator.Runner.Processors.SqlServer;
 using NUnit.Framework;
 using NUnit.Should;
@@ -32,7 +33,7 @@ namespace FluentMigrator.Tests.Unit.Generators.SqlServerCe4
             
             connection = new SqlCeConnection(ConnectionString);
             var debugAnnouncer = new ConsoleAnnouncer{ShowSql = true};
-            processor = new SqlServerCe4Processor(connection, debugAnnouncer);
+            processor = new SqlServerCe4Processor(connection, new SqlServerCe4Generator(), debugAnnouncer, new ProcessorOptions(), new SqlServerCeDbFactory());
             runner = new MigrationRunner(new RunnerContext(debugAnnouncer),  processor);
             
         }

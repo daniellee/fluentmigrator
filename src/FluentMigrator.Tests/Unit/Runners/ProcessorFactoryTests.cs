@@ -53,5 +53,12 @@ namespace FluentMigrator.Tests.Unit.Runners
 			IMigrationProcessorFactory factory = ProcessorFactory.GetFactory("SqlServer2008");
 			Assert.IsTrue(factory.GetType() == typeof(SqlServer2008ProcessorFactory));
 		}
+
+        [Test]
+        public void CanRetrieveSqlServerCe4FactoryWithArgumentString()
+        {
+            IMigrationProcessorFactory factory = ProcessorFactory.GetFactory("SqlServerCe4");
+            Assert.IsTrue(factory.GetType() == typeof(SqlServerCe4ProcessorFactory));
+        }
 	}
 }
