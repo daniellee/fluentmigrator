@@ -114,10 +114,6 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.configuration" />
-    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\SQLServerCE4\Private\System.Data.SqlServerCe.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -166,7 +162,6 @@
     <Compile Include="Generators\SqlServer\SqlServer2000TypeMap.cs" />
     <Compile Include="Generators\SqlServer\SqlServer2005TypeMap.cs" />
     <Compile Include="Generators\SqlServer\SqlServer2008TypeMap.cs" />
-    <Compile Include="Generators\SqlServer\SqlServerCe4Generator.cs" />
     <Compile Include="Generators\SqlServer\SqlServerCeGenerator.cs" />
     <Compile Include="Generators\SqlServer\SqlServerCeTypeMap.cs" />
     <Compile Include="Generators\SqlServer\SqlServerColumn.cs" />
@@ -211,10 +206,8 @@
     <Compile Include="Processors\DbFactoryBase.cs" />
     <Compile Include="Processors\ReflectionBasedDbFactory.cs" />
     <Compile Include="Processors\Sqlite\SqliteDbFactory.cs" />
-    <Compile Include="Processors\SqlServer\SqlServerCe4ProcessorFactory.cs" />
     <Compile Include="Processors\SqlServer\SqlServerCeDbFactory.cs" />
     <Compile Include="Processors\SqlServer\SqlServerDbFactory.cs" />
-    <Compile Include="Processors\SqlServer\SqlServerCe4Processor.cs" />
     <Compile Include="Processors\SqlServer\SqlServerCeProcessor.cs" />
     <Compile Include="Processors\SqlServer\SqlServer2008ProcessorFactory.cs" />
     <Compile Include="Processors\SqlServer\SqlServer2005ProcessorFactory.cs" />
