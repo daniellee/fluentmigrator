@@ -274,6 +274,7 @@
     <Compile Include="Unit\Runners\Migrations\2_UserEmail.cs" />
     <Compile Include="Unit\Runners\Migrations\3_UserRoles.cs" />
     <Compile Include="Unit\Runners\MigratorConsoleTests.cs" />
+    <Compile Include="Unit\Runners\MSBuildRunnerTests.cs" />
     <Compile Include="Unit\Runners\ProcessorFactoryTests.cs" />
     <Compile Include="Integration\Migrations\VersionedMigration.cs" />
     <Compile Include="Unit\StopWatchTests.cs" />

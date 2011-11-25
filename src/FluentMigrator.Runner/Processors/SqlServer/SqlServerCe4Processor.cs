@@ -4,7 +4,7 @@ using FluentMigrator.Builders.Execute;
 
 namespace FluentMigrator.Runner.Processors.SqlServer
 {
-    public class SqlServerCe4Processor : ProcessorBase
+    public sealed class SqlServerCe4Processor : ProcessorBase
     {
         private readonly DbFactoryBase factory;
 
@@ -13,7 +13,7 @@ namespace FluentMigrator.Runner.Processors.SqlServer
 
         public override string DatabaseType
         {
-            get { return "SqlCe4"; }
+            get { return "SqlServerCe4"; }
         }
 
         public SqlServerCe4Processor(IDbConnection connection, IMigrationGenerator generator, IAnnouncer announcer, IMigrationProcessorOptions options, DbFactoryBase factory)
@@ -37,11 +37,11 @@ namespace FluentMigrator.Runner.Processors.SqlServer
             try
             {
                 expression.Operation(Connection, Transaction);
+                //CommitTransaction();
             }
             catch (Exception ex)
             {
                 Announcer.Error(ex.Message);
-                RollbackTransaction();
                 throw;
             }
 
@@ -57,17 +57,20 @@ namespace FluentMigrator.Runner.Processors.SqlServer
             if (Connection.State != ConnectionState.Open)
                 Connection.Open();
 
+            if (Transaction == null)
+                BeginTransaction();
+
             using (var command = factory.CreateCommand(sql, Connection, Transaction))
             {
                 try
                 {
                     command.CommandTimeout = 0; // SQL Server CE does not support non-zero command timeout values!! :/
                     command.ExecuteNonQuery();
+                    //CommitTransaction();
                 }
                 catch (Exception ex)
                 {
                     Announcer.Error(ex.Message);
-                    RollbackTransaction();
                     throw;
                 }
             }
@@ -82,7 +85,11 @@ namespace FluentMigrator.Runner.Processors.SqlServer
         public override void CommitTransaction()
         {
             Announcer.Say("Committing Transaction");
-            Transaction.Commit();
+            if (Transaction != null)
+            {
+                Transaction.Commit();
+                Transaction = null;
+            }
 
             if (Connection.State != ConnectionState.Closed)
             {
@@ -92,6 +99,12 @@ namespace FluentMigrator.Runner.Processors.SqlServer
 
         public override void RollbackTransaction()
         {
+            if (Transaction == null)
+            {
+                Announcer.Say("No transaction was available to rollback!");
+                return;
+            }
+
             Announcer.Say("Rolling back transaction");
 
             Transaction.Rollback();
@@ -176,7 +189,7 @@ namespace FluentMigrator.Runner.Processors.SqlServer
             }
         }
 
-        protected string FormatSqlEscape(string sql)
+        private string FormatSqlEscape(string sql)
         {
             return sql.Replace("'", "''");
         }

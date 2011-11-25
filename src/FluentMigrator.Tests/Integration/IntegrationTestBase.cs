@@ -18,6 +18,8 @@
 
 using System;
 using System.Data.SqlClient;
+using System.Data.SqlServerCe;
+using System.IO;
 using System.Linq;
 using FluentMigrator.Runner.Announcers;
 using FluentMigrator.Runner.Generators.Postgres;
@@ -59,6 +61,8 @@ namespace FluentMigrator.Tests.Integration
 				ExecuteWithMySql(test, IntegrationTestOptions.MySql);
 			if (exceptProcessors.Count(t => typeof(PostgresProcessor).IsAssignableFrom(t)) == 0)
 				ExecuteWithPostgres(test, IntegrationTestOptions.Postgres, tryRollback);
+            if (exceptProcessors.Count(t => typeof(SqlServerCe4Processor).IsAssignableFrom(t)) == 0)
+                ExecuteWithSqlServerCe4(test, IntegrationTestOptions.SqlServerCe4);
 		}
 
         protected static void ExecuteWithSqlServer2008(Action<IMigrationProcessor> test, bool tryRollback)
@@ -120,6 +124,29 @@ namespace FluentMigrator.Tests.Integration
 				test(processor);
 			}
 		}
+
+        protected static void ExecuteWithSqlServerCe4(Action<IMigrationProcessor> test, IntegrationTestOptions.DatabaseServerOptions serverOptions)
+        {
+            if (!serverOptions.IsEnabled)
+                return;
+
+            if (File.Exists("Test.sdf"))
+                File.Delete("Test.sdf");
+            using (var engine = new SqlCeEngine(serverOptions.ConnectionString))
+            {
+                engine.CreateDatabase();
+            }
+
+            var announcer = new TextWriterAnnouncer(System.Console.Out);
+            announcer.Heading("Testing Migration against SQL Server Ce 4");
+
+            var factory = new SqlServerCeDbFactory();
+            using (var connection = factory.CreateConnection(serverOptions.ConnectionString))
+            {
+                var processor = new SqlServerCe4Processor(connection, new SqlServerCe4Generator(), announcer, new ProcessorOptions(), factory);
+                test(processor);
+            }
+        }
 
 		protected static void ExecuteWithPostgres(Action<IMigrationProcessor> test, IntegrationTestOptions.DatabaseServerOptions serverOptions, Boolean tryRollback)
 		{

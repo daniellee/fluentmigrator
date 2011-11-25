@@ -20,7 +20,7 @@
 															{
 																ConnectionString =
 																	@"Data Source=:memory:;Version=3;New=True;",
-																IsEnabled = true
+																IsEnabled = false
 															};
 
 		public static DatabaseServerOptions MySql = new DatabaseServerOptions
@@ -36,7 +36,13 @@
 	                                                           IsEnabled = false
 	                                                       };
 
-		public class DatabaseServerOptions
+	    public static DatabaseServerOptions SqlServerCe4 = new DatabaseServerOptions
+	                                                           {
+	                                                               ConnectionString = "Data Source=Test.sdf",
+                                                                   IsEnabled = true
+	                                                           };
+
+	    public class DatabaseServerOptions
 		{
 			public string ConnectionString;
 			public bool IsEnabled = true;

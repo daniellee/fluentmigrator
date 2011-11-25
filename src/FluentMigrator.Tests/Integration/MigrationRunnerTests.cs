@@ -102,7 +102,7 @@ namespace FluentMigrator.Tests.Integration
 
 					processor.ConstraintExists(null, "Users", "FK_Users_GroupId_Groups_GroupId").ShouldBeTrue();
 					runner.Down(new TestForeignKeyNamingConvention());
-				}, false, typeof(SqliteProcessor));
+                }, false, typeof(SqliteProcessor), typeof(SqlServerCe4Processor));
 		}
 
         [Test]
@@ -117,7 +117,7 @@ namespace FluentMigrator.Tests.Integration
 
                     processor.ConstraintExists("TestSchema", "Users", "FK_Users_GroupId_Groups_GroupId").ShouldBeTrue();
                     runner.Down(new TestForeignKeyNamingConventionWithSchema());
-                }, false, typeof(SqliteProcessor));
+                }, false, typeof(SqliteProcessor), typeof(SqlServerCe4Processor));
         }
 
 		[Test]
@@ -284,7 +284,7 @@ namespace FluentMigrator.Tests.Integration
 
 					runner.Down(new TestCreateAndDropTableMigration());
 					processor.ColumnExists(null, "TestTable2", "Name").ShouldBeFalse();
-				}, true, typeof(SqliteProcessor));
+                }, true, typeof(SqliteProcessor), typeof(SqlServerCe4Processor));
 		}
 
         [Test]
@@ -312,7 +312,7 @@ namespace FluentMigrator.Tests.Integration
                     processor.ColumnExists("TestSchema", "TestTable2", "Name").ShouldBeFalse();
 
                     runner.Down(new TestCreateSchema());
-				}, true, typeof(SqliteProcessor));
+                }, true, typeof(SqliteProcessor), typeof(SqlServerCe4Processor));
         }
 
 		[Test]
@@ -392,7 +392,7 @@ namespace FluentMigrator.Tests.Integration
 
 					runner.VersionLoader.VersionInfo.HasAppliedMigration(1).ShouldBeTrue();
 					processor.TableExists(null, "Users").ShouldBeTrue();
-				}, false, typeof(SqliteProcessor));
+                }, false, typeof(SqliteProcessor), typeof(SqlServerCe4Processor));
 
 				ExecuteWithSupportedProcessors(processor =>
 				{
@@ -401,7 +401,7 @@ namespace FluentMigrator.Tests.Integration
 
 					testRunner.VersionLoader.VersionInfo.HasAppliedMigration(1).ShouldBeFalse();
 					processor.TableExists(null, "Users").ShouldBeFalse();
-				}, false, typeof(SqliteProcessor));
+                }, false, typeof(SqliteProcessor), typeof(SqlServerCe4Processor));
 
 			}
 			finally
